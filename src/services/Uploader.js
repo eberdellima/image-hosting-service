@@ -31,6 +31,7 @@ class Uploader {
 
     } catch(err) {
       logError({ message: err, path: 'Uploader, save, global catch'})
+      throw new Error({message: err, status: 500})
     }
   }
 
@@ -46,6 +47,7 @@ class Uploader {
       return `${uuidV4()}.${mimeType}`
     } catch(err) {
       logError({ message: err, path: 'Uploader, filename'})
+      throw new Error({message: err, status: 500})
     }
   }
 
@@ -54,6 +56,7 @@ class Uploader {
       return path.resolve(`${this.source}/${filename}`)
     } catch(err) {
       logError({ messge: err, path: 'Uploader, filepath'})
+      throw new Error({message: err, status: 500})
     }
   }
 }
