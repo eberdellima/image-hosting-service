@@ -8,6 +8,8 @@ After installing dependencies, on root folder of the project create a "public" f
 
 ## TODO
 
-- add database
+- save file data on database
 - return id instead of filename on post requests
 - create get requests (id, pagination)
+- add JWT authentication
+- server files from the public directory
