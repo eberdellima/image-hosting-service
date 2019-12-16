@@ -29,7 +29,7 @@ const Repository = {
       if (!file) {
         throw new Error('File not in datebase!')
       }
-      return file.filename
+      return `${file.filename}.${fiel.mimetype}`
 
     } catch(err) {
       logError({message: err, path: 'Storer, get, global'})
@@ -49,7 +49,7 @@ const Repository = {
       }
 
       const updatedFile = await file.update({deleted_at: new Date.now()})
-      return updatedFile.filename
+      return `${updatedFile.filename}.${updatedFile.mimetype}`
 
     } catch(err) {
       logError({message: err, path: 'Storer, remove, global'})

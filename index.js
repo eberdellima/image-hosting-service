@@ -1,6 +1,6 @@
-const { logError } = require('zippy-logger')
-const { sequelize } = require('./boot/database')
 const app = require('./boot/app')
+const { sequelize } = require('./boot/database')
+const { logError } = require('zippy-logger')
 
 const port = process.env.PORT || 3000
 
