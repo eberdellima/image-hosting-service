@@ -8,6 +8,5 @@ After installing dependencies, on root folder of the project create a "public" f
 
 ## TODO
 
-- create get requests (id, pagination)
 - add JWT authentication
 - server files from the public directory

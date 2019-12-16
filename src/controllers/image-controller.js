@@ -9,6 +9,31 @@ class ImageController {
     this.fileUpload = new Uploader(imageDir)
   }
 
+  async fetch(id) {
+    try {
+      const filename = await Repository.get(id)
+      return { name: filename }
+    } catch(err) {
+      logError({ message: err, path: 'ImageController, fetch, global catch' })
+      throw new Error({error: err && err.message, status: err.status || 500})
+    }
+  }
+
+  async fetchList(ids) {
+    try {
+
+      const filenames = await Promise.all(ids.map(async id => {
+        const filename = await Repository.get(id)
+        return { name: filename }
+      }))
+      return { data: filenames }
+
+    } catch(err) {
+      logError({ message: err, path: 'ImageController, fetchList, global catch' })
+      throw new Error({error: err && err.message, status: err.status || 500})
+    }
+  }
+
   async upload(file) {
     try {
       const type = file.mimetype.split('/')[1]
