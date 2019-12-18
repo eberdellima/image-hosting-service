@@ -17,7 +17,7 @@ router.post('/singleImage', upload.single('image'), async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, singleImage, POST ' })
-    res.status(err.status).send(err)
+    res.status(500).send({error: err.message})
   }
 })
 
@@ -34,7 +34,7 @@ router.post('/multiImage', upload.array('image', 10), async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, multiImage, POST' })
-    res.status(err.status).send(err)
+    res.status(500).send({error: err.message})
   }
 })
 
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, id, GET' })
-    res.status(err.status).send(err)
+    res.status(500).send({error: err.message})
   }
 })
 
@@ -73,7 +73,7 @@ router.get('/', async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, id, GET' })
-    res.status(err.status).send(err)
+    res.status(500).send({error: err.message})
   }
 })
 

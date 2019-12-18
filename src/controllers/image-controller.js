@@ -1,6 +1,7 @@
 const Uploader = require('../services/Uploader')
 const Repository = require('../services/Repository')
 const { logError } = require('zippy-logger')
+const path = require('path')
 
 class ImageController {
 
@@ -15,7 +16,7 @@ class ImageController {
       return { name: filename }
     } catch(err) {
       logError({ message: err, path: 'ImageController, fetch, global catch' })
-      throw new Error({error: err && err.message, status: err.status || 500})
+      throw new Error(err.message)
     }
   }
 
@@ -30,7 +31,7 @@ class ImageController {
 
     } catch(err) {
       logError({ message: err, path: 'ImageController, fetchList, global catch' })
-      throw new Error({error: err && err.message, status: err.status || 500})
+      throw new Error(err.message)
     }
   }
 
@@ -42,7 +43,7 @@ class ImageController {
       return {id: imageId}
     } catch(err) {
       logError({ message: err, path: 'ImageController, upload, global catch' })
-      throw new Error({error: err && err.message, status: err.status || 500})
+      throw new Error(err.message)
     }
   }
 
@@ -57,7 +58,7 @@ class ImageController {
       return { data: fileIDs }
     } catch(err) {
       logError({ message: err, path: 'ImageController, uploadMulti, global catch' })
-      throw new Error({error: err && err.message, status: err.status || 500})
+      throw new Error(err.message)
     }
   }
 

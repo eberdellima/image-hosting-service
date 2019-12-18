@@ -8,4 +8,4 @@ After installing dependencies, on root folder of the project create a "public" f
 
 ## TODO
 
-- add JWT authentication
+- review error handling

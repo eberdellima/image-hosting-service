@@ -15,17 +15,19 @@ const Repository = {
 
     } catch(err) {
       logError({message: err, path: 'Storer, save, global'})
-      throw new Error({message: err, status: 500})
+      throw new Error(err.message)
     }
   },
 
   get: async function(id) {
     try {
       const file = await db.Images.findOne({
-        id: id,
-        deleted_at: null
+        where: {
+          id: id,
+          deleted_at: null
+        }
       })
-      
+
       if (!file) {
         throw new Error('File not in datebase!')
       }
@@ -33,7 +35,7 @@ const Repository = {
 
     } catch(err) {
       logError({message: err, path: 'Storer, get, global'})
-      throw new Error({message: err, status: 500})
+      throw new Error(err.message)
     }
   },
 
@@ -53,7 +55,7 @@ const Repository = {
 
     } catch(err) {
       logError({message: err, path: 'Storer, remove, global'})
-      throw new Error({message: err, status: 500})
+      throw new Error(err.message)
     }
   }
 }
