@@ -10,6 +10,7 @@ const startServer = async () => {
     app.listen(port, () => { console.log(`Listening on port ${port}`) })
   } catch(err) {
     logError({ message: err, path: 'Initializing application!' })
+    process.exit(1)
   }
 }
 

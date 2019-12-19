@@ -8,4 +8,5 @@ After installing dependencies, on root folder of the project create a "public" f
 
 ## TODO
 
-- review error handling
+- add documentation for routes, ip filtering
+- dynamically define sizes for image resizing

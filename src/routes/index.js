@@ -16,8 +16,8 @@ router.post('/singleImage', upload.single('image'), async (req, res) => {
     res.status(200).send(result)
 
   } catch (err) {
-    logError({ message: err, path: 'Index routes, singleImage, POST ' })
-    res.status(500).send({error: err.message})
+    logError({ message: err.msg || err.message, path: 'Index routes, singleImage, POST ' })
+    res.status(err.status || 500).send({error: err.msg || err.message})
   }
 })
 
@@ -34,7 +34,7 @@ router.post('/multiImage', upload.array('image', 10), async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, multiImage, POST' })
-    res.status(500).send({error: err.message})
+    res.status(err.status || 500).send({error: err.msg || err.message})
   }
 })
 
@@ -43,7 +43,7 @@ router.get('/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10)
 
     if (isNaN(id)) {
-      res.status(409).send('Invalid id!')
+      res.status(408).send('Invalid id!')
     }
 
     const imageController = new ImageController()
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 
   } catch (err) {
     logError({ message: err, path: 'Index routes, id, GET' })
-    res.status(500).send({error: err.message})
+    res.status(err.status || 500).send({error: err.msg || err.message})
   }
 })
 
@@ -72,8 +72,8 @@ router.get('/', async (req, res) => {
     res.status(200).send(result)
 
   } catch (err) {
-    logError({ message: err, path: 'Index routes, id, GET' })
-    res.status(500).send({error: err.message})
+    logError({ message: err, path: 'Index routes, root , GET' })
+    rres.status(err.status || 500).send({error: err.msg || err.message})
   }
 })
 

@@ -1,6 +1,7 @@
 const Uploader = require('../services/Uploader')
 const Repository = require('../services/Repository')
 const { logError } = require('zippy-logger')
+const ErrorHandler = require('../services/ErrorHandler')
 const path = require('path')
 
 class ImageController {
@@ -15,14 +16,13 @@ class ImageController {
       const filename = await Repository.get(id)
       return { name: filename }
     } catch(err) {
-      logError({ message: err, path: 'ImageController, fetch, global catch' })
-      throw new Error(err.message)
+      logError({ message: err.msg || err.message, path: 'ImageController, fetch, global catch' })
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   }
 
   async fetchList(ids) {
     try {
-
       const filenames = await Promise.all(ids.map(async id => {
         const filename = await Repository.get(id)
         return { name: filename }
@@ -30,8 +30,8 @@ class ImageController {
       return { data: filenames }
 
     } catch(err) {
-      logError({ message: err, path: 'ImageController, fetchList, global catch' })
-      throw new Error(err.message)
+      logError({ message: err.msg || err.message, path: 'ImageController, fetchList, global catch' })
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   }
 
@@ -42,8 +42,8 @@ class ImageController {
       const imageId = await Repository.save({filename, mimetype: type})
       return {id: imageId}
     } catch(err) {
-      logError({ message: err, path: 'ImageController, upload, global catch' })
-      throw new Error(err.message)
+      logError({ message: err.msg || err.message, path: 'ImageController, upload, global catch' })
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   }
 
@@ -57,8 +57,8 @@ class ImageController {
       }))
       return { data: fileIDs }
     } catch(err) {
-      logError({ message: err, path: 'ImageController, uploadMulti, global catch' })
-      throw new Error(err.message)
+      logError({ message: err.msg || err.message, path: 'ImageController, uploadMulti, global catch' })
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   }
 

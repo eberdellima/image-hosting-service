@@ -1,5 +1,6 @@
 const { db } = require('../../boot/database')
 const { logError } = require('zippy-logger')
+const ErrorHandler = require('./ErrorHandler')
 
 const Repository = {
   save: async function(data) {
@@ -14,8 +15,8 @@ const Repository = {
       return savedImage.id
 
     } catch(err) {
-      logError({message: err, path: 'Storer, save, global'})
-      throw new Error(err.message)
+      logError({message: err.message, path: 'Storer, save, global'})
+      throw new ErrorHandler(err.message, 500)
     }
   },
 
@@ -29,13 +30,13 @@ const Repository = {
       })
 
       if (!file) {
-        throw new Error('File not in datebase!')
+        throw new ErrorHandler('File not found!', 404)
       }
       return `${file.filename}.${fiel.mimetype}`
 
     } catch(err) {
-      logError({message: err, path: 'Storer, get, global'})
-      throw new Error(err.message)
+      logError({message: err.msg || err.message, path: 'Storer, get, global'})
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   },
 
@@ -47,15 +48,15 @@ const Repository = {
       })
 
       if (!file) {
-        throw new Error('File not in datebase!')
+        throw new ErrorHandler('File not in datebase!', 404)
       }
 
       const updatedFile = await file.update({deleted_at: new Date.now()})
       return `${updatedFile.filename}.${updatedFile.mimetype}`
 
     } catch(err) {
-      logError({message: err, path: 'Storer, remove, global'})
-      throw new Error(err.message)
+      logError({message: err.msg || err.message, path: 'Storer, remove, global'})
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
     }
   }
 }

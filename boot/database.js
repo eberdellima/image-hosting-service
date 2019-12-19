@@ -12,7 +12,7 @@ const sequelize = new Sequelize(...dbConfig, {
 })
 
 const db = {
-  Images: sequelize.import('./../src/models/Images')
+  Images: sequelize['import']('./../src/models/Images')
 }
 
 module.exports = {
