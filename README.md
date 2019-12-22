@@ -14,7 +14,7 @@ The images can be saved in different dimensions. You only need to add the list o
 
 where name is a generated uuid. Using the above filename you will be able to use the image in you frontend service.
 
-Also, you can encapsulate the image service API by providing a list of allowed IPs in the .env fie and requiring those IPs in ./configs/allowed-ips.js
+Also, you can encapsulate the image service API by providing a list of allowed IPs in the .env fie and requiring those IPs in ./configs/allowed-ips.js.
 If you need to change the way the IP is parsed , just change the implementation of ./src/middlewares/ip-parser.js file.
 
 ## API docs
