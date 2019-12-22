@@ -66,4 +66,22 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.delete('/id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10)
+
+    if (isNaN(id)) {
+      res.status(408).send('Invalid id!')
+    }
+
+    const imageController = new ImageController()
+    const result = imageController.remove(id)
+    res.status(200).send()
+
+  } catch(err) {
+    logError({ message: err, path: 'Index routes, id , DELETE' })
+    rres.status(err.status || 500).send({error: err.msg || err.message})
+  }
+})
+
 module.exports = router

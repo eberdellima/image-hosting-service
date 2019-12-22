@@ -2,6 +2,7 @@ const Uploader = require('../services/Uploader')
 const Repository = require('../services/Repository')
 const { logError } = require('zippy-logger')
 const ErrorHandler = require('../services/ErrorHandler')
+const imageSizes = require('../../configs/image-sizes')
 const path = require('path')
 
 class ImageController {
@@ -13,8 +14,8 @@ class ImageController {
 
   async fetch(id) {
     try {
-      const filename = await Repository.get(id)
-      return { name: filename }
+      const file = await Repository.get(id)
+      return { data: file, sizes: imageSizes }
     } catch(err) {
       logError({ message: err.msg || err.message, path: 'ImageController, fetch, global catch' })
       throw new ErrorHandler(err.msg || err.message, err.status || 500)
@@ -23,11 +24,11 @@ class ImageController {
 
   async fetchList(ids) {
     try {
-      const filenames = await Promise.all(ids.map(async id => {
-        const filename = await Repository.get(id)
-        return { name: filename }
+      const files = await Promise.all(ids.map(async id => {
+        const file = await Repository.get(id)
+        return file
       }))
-      return { data: filenames }
+      return { data: files, sizes: imageSizes }
 
     } catch(err) {
       logError({ message: err.msg || err.message, path: 'ImageController, fetchList, global catch' })
@@ -56,6 +57,16 @@ class ImageController {
         return {id: imageId}
       }))
       return { data: fileIDs }
+    } catch(err) {
+      logError({ message: err.msg || err.message, path: 'ImageController, uploadMulti, global catch' })
+      throw new ErrorHandler(err.msg || err.message, err.status || 500)
+    }
+  }
+
+  async remove(id) {
+    try {
+      const removedFile = await Repository.remove(id)
+      return removedFile
     } catch(err) {
       logError({ message: err.msg || err.message, path: 'ImageController, uploadMulti, global catch' })
       throw new ErrorHandler(err.msg || err.message, err.status || 500)

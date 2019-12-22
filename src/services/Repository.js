@@ -32,7 +32,7 @@ const Repository = {
       if (!file) {
         throw new ErrorHandler('File not found!', 404)
       }
-      return `${file.filename}.${fiel.mimetype}`
+      return file
 
     } catch(err) {
       logError({message: err.msg || err.message, path: 'Storer, get, global'})
@@ -52,7 +52,7 @@ const Repository = {
       }
 
       const updatedFile = await file.update({deleted_at: new Date.now()})
-      return `${updatedFile.filename}.${updatedFile.mimetype}`
+      return updatedFile
 
     } catch(err) {
       logError({message: err.msg || err.message, path: 'Storer, remove, global'})

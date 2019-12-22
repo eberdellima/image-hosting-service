@@ -30,7 +30,7 @@ class Uploader {
 
       try {
         await Promise.all(resizeOpts.map(async opts => {
-          const sizePath = `${filepath}_${opts[0]}X${opts[1]}}.${mimeType}`
+          const sizePath = `${filepath}_${opts[0]}X${opts[1]}.${mimeType}`
           await sharp(buffer).resize(...opts).toFile(sizePath)
         }))
       } catch(err) {
