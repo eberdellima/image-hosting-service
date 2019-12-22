@@ -1,37 +1,26 @@
 const router = require('express').Router()
 const upload = require('../middlewares/uploadMiddleware')
 const ImageController = require('../controllers/image-controller')
+const ImageValidator = require('../validators/image-validator')
 const { logError } = require('zippy-logger')
 
 
-router.post('/singleImage', upload.single('image'), async (req, res) => {
+router.post('/singleImage', upload.single('image'), ImageValidator.single, async (req, res) => {
   try {
     const imageController = new ImageController()
-
-    if (!req.file) {
-      res.status(401).send({ error: 'Image not provided!' })
-    }
-
     const result = await imageController.upload(req.file)
     res.status(200).send(result)
-
   } catch (err) {
     logError({ message: err.msg || err.message, path: 'Index routes, singleImage, POST ' })
     res.status(err.status || 500).send({error: err.msg || err.message})
   }
 })
 
-router.post('/multiImage', upload.array('image', 10), async (req, res) => {
+router.post('/multiImage', upload.array('image', 10), ImageValidator.multi, async (req, res) => {
   try {
     const imageController = new ImageController()
-
-    if (!req.files) {
-      res.status(401).send({ error: 'Image not provided!' })
-    }
-
     const result = await imageController.uploadMulti(req.files)
     res.status(200).send(result)
-
   } catch (err) {
     logError({ message: err, path: 'Index routes, multiImage, POST' })
     res.status(err.status || 500).send({error: err.msg || err.message})

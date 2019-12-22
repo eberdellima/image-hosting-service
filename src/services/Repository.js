@@ -8,7 +8,7 @@ const Repository = {
       const image = new db.Images({
         filename: data.filename,
         mimetype: data.mimetype,
-        created_at: new Date.now(),
+        created_at: Date.now(),
       })
 
       const savedImage = await image.save()
