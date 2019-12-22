@@ -1,4 +1,4 @@
-# Image-uploading-service
+# Image-hosting-service
 
 A easy-to-integrate backend service for uploading and serving images.
 
