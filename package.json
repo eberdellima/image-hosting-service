@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "tsc": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,9 @@
     "zippy-logger": "^1.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "@types/node": "^14.0.11",
+    "@types/validator": "^13.0.0",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.9.5"
   }
 }
